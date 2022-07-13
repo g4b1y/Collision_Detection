@@ -14,7 +14,9 @@ namespace col
         Point_Polygon,
         Circle_Polygon,
         Rectangle_Polygon,
-        Polygon_Polygon
+        Polygon_Polygon,
+        OOP_Rectangles,
+        Matrix_Transformation
     } C_TYPE, COLLISION_TYPE;
 
     typedef struct

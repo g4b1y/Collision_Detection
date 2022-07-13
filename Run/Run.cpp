@@ -48,6 +48,14 @@ void col::Run::decide() {
             create(col::Rectangle_Rectangle);
         }break;
 
+        case 11: {
+            create(col::OOP_Rectangles);
+        }break;
+
+        case 12: {
+            create(col::Matrix_Transformation);
+        }break;
+
         default:{
             std::cerr << "\nNothing was picked" << std::endl;
             create(col::Polygon_Polygon);
@@ -56,8 +64,9 @@ void col::Run::decide() {
 }
 
 void col::Run::create(col::C_TYPE type) {
-    sf::RenderWindow window(sf::VideoMode(400, 400), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(600, 400), "SFML works!", sf::Style::Resize);
     window.setMouseCursorVisible(false);
+    window.setFramerateLimit(90.f);
 
     switch(type) {
         case col::Point_Point: {
@@ -75,6 +84,8 @@ void col::Run::create(col::C_TYPE type) {
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
                         window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
                 }
                 if (col::Collision::PointCollision(p1, p2)) { window.clear(sf::Color(255, 150, 0)); }
                 else { window.clear(sf::Color::White); }
@@ -85,7 +96,7 @@ void col::Run::create(col::C_TYPE type) {
                 window.display();
             }
         }
-            break;
+        break;
 
         case col::Point_Circle: {
             sf::CircleShape p1(3.f);
@@ -101,6 +112,8 @@ void col::Run::create(col::C_TYPE type) {
 
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
+                        window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                         window.close();
                 }
                 if (col::Collision::PointCircleCollision(p1, p2)) { p2.setFillColor(sf::Color(255, 150, 0)); }
@@ -128,6 +141,8 @@ void col::Run::create(col::C_TYPE type) {
 
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
+                        window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                         window.close();
                 }
 
@@ -164,6 +179,8 @@ void col::Run::create(col::C_TYPE type) {
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
                         window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
                 }
                 if (col::Collision::PointRectangleCollision(p1, r1)) { r1.setFillColor(sf::Color(255, 150, 0)); }
                 else { r1.setFillColor(sf::Color(0, 150, 255)); }
@@ -196,6 +213,8 @@ void col::Run::create(col::C_TYPE type) {
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
                         window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
                 }
                 if (col::Collision::RectangleRectangleCollision(r2, r1)) { r1.setFillColor(sf::Color(255, 150, 0)); }
                 else { r1.setFillColor(sf::Color(0, 150, 255)); }
@@ -224,6 +243,8 @@ void col::Run::create(col::C_TYPE type) {
 
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
+                        window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                         window.close();
                 }
                 if (col::Collision::CircleRectangleCollision(p1, r1)) { r1.setFillColor(sf::Color(255, 150, 0)); }
@@ -265,6 +286,8 @@ void col::Run::create(col::C_TYPE type) {
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
                         window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
                 }
                 if (col::Collision::PointPolygonCollision(c, p)) { p.setFillColor(sf::Color(255, 150, 0)); }
                 else { p.setFillColor(sf::Color(0, 150, 255)); }
@@ -304,6 +327,8 @@ void col::Run::create(col::C_TYPE type) {
 
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
+                        window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                         window.close();
                 }
                 if (col::Collision::CirclePolygonCollision(c, p)) { p.setFillColor(sf::Color(255, 150, 0)); }
@@ -346,6 +371,8 @@ void col::Run::create(col::C_TYPE type) {
 
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
+                        window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
                         window.close();
                 }
                 if (col::Collision::RectanglePolygonCollision(r, p)) { p.setFillColor(sf::Color(255, 150, 0)); }
@@ -396,6 +423,8 @@ void col::Run::create(col::C_TYPE type) {
                 while (window.pollEvent(event)) {
                     if (event.type == sf::Event::Closed)
                         window.close();
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
                 }
 
                 if (col::Collision::PolygonPolygonCollision(randomPolygon, Pentagon)) {
@@ -409,7 +438,95 @@ void col::Run::create(col::C_TYPE type) {
                 window.display();
             }
         }
-            break;
+        break;
+
+        case col::OOP_Rectangles : {
+            sf::CircleShape c(30.f);
+            std::vector<sf::RectangleShape> rects(8);
+
+            c.setFillColor(sf::Color(75,75,75));
+
+            for(int i = 0; i < 18; i++)
+            {
+                float x = static_cast<int> ((rand() % (window.getSize().x - 50) + 50) /50) * 50;
+                float y = static_cast<int> ((rand() %(window.getSize().y -50) + 50) /50) * 50;
+                std::cout << x << '\t'  << y << std::endl;
+                sf::RectangleShape temp(sf::Vector2f(50,50));
+                temp.setPosition(sf::Vector2f(x, y));
+                temp.setFillColor(sf::Color(0,150,255));
+                rects.push_back(temp);
+            }
+
+            while (window.isOpen()) {
+                c.setPosition(sf::Vector2f(sf::Mouse::getPosition(window).x - c.getRadius(), sf::Mouse::getPosition(window).y - c.getRadius()));
+
+                sf::Event event;
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
+                }
+
+                for(int i = 0; i < rects.size(); i++)
+                {
+                    if(col::Collision::CircleRectangleCollision(c, rects.at(i))) {
+                        rects.at(i).setFillColor((sf::Color(255,150,0)));
+                    }
+                    else {
+                        rects.at(i).setFillColor((sf::Color(0,150,255)));
+                    }
+                }
+
+                window.clear(sf::Color::White);
+                window.draw(c);
+                for(int i = 0; i < rects.size(); i++)
+                    window.draw(rects.at(i));
+                window.display();
+            }
+        }
+        break;
+
+        case col::Matrix_Transformation : {
+
+
+            col::square s1(4);
+            s1.regularPolygon(70.71, 4);
+            s1.center = sf::Vector2f(window.getSize().x / 3, window.getSize().y / 2);
+
+            col::square s2(4);
+            s2.regularPolygon(148.421, 4);
+            s2.center = sf::Vector2f(window.getSize().x - window.getSize().x / 3, window.getSize().y / 2);
+
+
+            s1.pointsToScreenCords();
+            s2.pointsToScreenCords();
+
+
+            while (window.isOpen()) {
+                //rotate
+
+                col::square::collision(s1.p, s2.p);
+
+
+                sf::Event event;
+                while (window.pollEvent(event)) {
+                    if (event.type == sf::Event::Closed)
+                        window.close();
+
+                    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
+                        window.close();
+                }
+
+                window.clear(sf::Color::White);
+                window.draw(s1.p);
+                window.draw(s2.p);
+                window.display();
+            }
+
+        }
+        break;
     }
 }
 
@@ -424,8 +541,64 @@ void col::Run::getInfo() {
                  << "7) Circle-Polygon Collision\n"
                  << "8) Rectangle-Polygon Collision\n"
                  << "9) Polygon-Polygon Collision\n"
-                 << "10) Rectangle-Rectangle Collision" << std::endl;
+                 << "10) Rectangle-Rectangle Collision\n"
+                 << "11) OOP-Rectangles Collision\n"
+                 << "12) Matrix Transformation\n" << std::endl;
     int a = 0;
-    std::cin >> a;
-    num = a;
+
+    //std::cin >> a;
+    num = 12;
 }
+
+void col::square::pointsToScreenCords() {
+    sf::ConvexShape temp(p.getPointCount());
+    for(int i = 0; i < p.getPointCount(); i++)
+    {
+        temp.setPoint(i, sf::Vector2f(
+                p.getPoint(i).x + p.getPosition().x,
+                p.getPoint(i).y + p.getPosition().y
+        ));
+    }
+    p = temp;
+    p.setPosition(center);
+}
+
+void col::square::collision(sf::ConvexShape &p1, sf::ConvexShape &p2)
+{
+    if(Collision::PolygonPolygonCollision(p2, p1))
+    {
+        p2.setFillColor(sf::Color(255, 150, 0));
+        p1.setFillColor(sf::Color(255, 150, 0));
+    }
+    else
+    {
+        p2.setFillColor(sf::Color(0, 150, 255));
+        p1.setFillColor(sf::Color(0, 150, 255));
+    }
+}
+
+void col::square::regularPolygon(float r, int n) {
+    sf::Vector2f temp;
+    for( int i = 0; i < n; i++)
+    {
+        temp.x = cos((2 * M_PI * (i )) / (n))  * r;
+        temp.y = sin((2 * M_PI * (i )) / (n))  * r;
+        p.setPoint(i, temp);
+    }
+}
+
+sf::Vector2f col::square::rotate(sf::Vector2f pt, float angleDeg) {
+    float angleRad = (angleDeg/180)* M_PI;
+    float cosAngle = cos(angleRad );
+    float sinAngle = sin(angleRad );
+    float dx = (pt.x-center.x);
+    float dy = (pt.y-center.y);
+
+    pt.x = center.x + (dx*cosAngle-dy*sinAngle);
+    pt.y = center.y + (dx*sinAngle+dy*cosAngle);
+    return pt;
+}
+
+
+
+

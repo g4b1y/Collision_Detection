@@ -7,6 +7,21 @@
 
 namespace col
 {
+
+    struct square {
+        sf::ConvexShape p;
+        sf::Vector2f center;
+
+        square(int count ) {
+            p.setPointCount(count);
+        }
+
+        void pointsToScreenCords();
+        static void collision(sf::ConvexShape& p1, sf::ConvexShape& p2);
+        void regularPolygon(float r, int n);
+        sf::Vector2f rotate(sf::Vector2f pt, float angle);
+    };
+
     class Run
     {
     private:
